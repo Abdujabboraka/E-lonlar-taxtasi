@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<body>
+{% include 'components/header.html' %}
+<style>/* style.css */
+.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+.messages li {
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #ffffff;
+    position: relative;
+    background: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    animation: fadeIn 0.5s forwards;
+}
+
+.messages li.success {
+    background: linear-gradient(145deg, #33cc59, #208e3b);
+}
+
+.messages li.error {
+    background: linear-gradient(145deg, #ff4b5e, #c72c37);
+}
+
+.messages li.info {
+    background: linear-gradient(145deg, #23c1e3, #118299);
+}
+
+.messages li.warning {
+    background: linear-gradient(145deg, #ffdb4e, #d9a106);
+    color: #333;
+}
+
+.messages li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .messages li {
+        font-size: 15px;
+        padding: 12px 15px;
+    }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+</style>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+<script><!-- Add this JavaScript code inside your HTML file, preferably at the end of the body -->
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const messages = document.querySelectorAll('.messages li');
+        if (messages) {
+            setTimeout(() => {
+                messages.forEach((message) => {
+                    message.style.transition = 'opacity 0.5s ease-out';  // Set transition
+                    message.style.opacity = '0';  // Start fade-out
+                });
+
+                setTimeout(() => {
+                    messages.forEach((message) => {
+                        message.remove();  // Remove the message after fade-out
+                    });
+                }, 500);  // Delay before removing the message (for transition to complete)
+            }, 5000);  // 3-second delay before starting the fade-out
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+{% block content %}
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% include 'components/footer.html' %}
+
+
+</body>
+</html>

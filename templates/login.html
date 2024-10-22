@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<style>.container {
+    max-width: 400px; /* Center the form in the middle of the page */
+    margin: auto; /* Center the container */
+}
+
+h2 {
+    color: #007bff; /* Blue color for the heading */
+}
+
+.btn-primary {
+    background-color: #28a745; /* Green background for the login button */
+    border-color: #28a745; /* Green border for the login button */
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #1e7e34; /* Darker border on hover */
+}
+
+.text-primary {
+    color: #007bff; /* Blue color for the register link */
+}
+
+.text-primary:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+    /* General styling for the login message */
+.message-login {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 10, 10, 0.9); /* Semi-transparent background */
+    border: 10px solid; /* Set a base border size */
+    border-image: repeating-linear-gradient(45deg, black, black 10px, yellow 10px, yellow 20px) 10;
+    border-radius: 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transitions */
+    opacity: 1;
+}
+
+.message-login p {
+    margin: 0;
+    padding: 10;
+    line-height: 1.6;
+}
+
+/* Add hover effect */
+.message-login:hover {
+    transform: scale(1.05); /* Slightly increase the size */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .message-login {
+        font-size: 20px;
+        padding: 20px;
+    }
+}
+
+</style>
+<div class="message-login">
+    <p>
+        E'lon joylash uchun avval Log in Yoki  Registratsiya qiling!
+    </p>
+</div>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Login</h2>
+    <form method="POST" class="bg-light p-4 border rounded">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+    </form>
+    <div class="text-center mt-3">
+        <p>Akaunt yo'qmi? <a href="{% url 'register' %}" class="text-primary">Registratsya qiling</a></p>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

@@ -1,0 +1,282 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+    /* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Top Bar Styling */
+.top_bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border-bottom: 2px solid #0056b3;
+}
+
+.profile_info {
+    display: flex;
+    align-items: center;
+}
+
+.profile_photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid white;
+}
+
+.user_name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.balance_info {
+    display: flex;
+    align-items: center;
+}
+
+.balance_info h2 {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+}
+
+.coin_icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+}
+
+/* Profile Box Styling */
+.profile-box {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.info-box h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.details h3 {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+}
+
+.contact-png {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Form Styling */
+.edit-form {
+    margin-top: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form input, .form button {
+    padding: 10px;
+    font-size: 16px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+</style>
+
+<div class="top_bar">
+    <div class="profile_info">
+        {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="{{ user.first_name }}'s photo" class="profile_photo">
+        {% else %}
+            <img src="{% static 'profile/user.png' %}" alt="Default user photo" class="profile_photo">
+        {% endif %}
+        <p class="user_name">{{ user.first_name }}</p>
+    </div>
+    <div class="balance_info">
+        <h2>
+            <img src="{% static 'navigations/plus.png' %}" alt="Balance icon" class="coin_icon"><img src="{% static 'profile/coin.png' %}" alt="Balance icon" class="coin_icon">
+            {{ profile.balance }}
+        </h2>
+    </div>
+</div>
+
+<div class="profile-box">
+    <div class="info-box">
+        <h2>Mening Profilim</h2>
+        <h1>{{ user.username }}</h1>
+        <div class="details">
+            <h3>Familiya: {{ user.last_name }}</h3>
+            <h3>Ism: {{ user.first_name }}</h3>
+            <h3><img class="contact-png" src="{% static 'contacts/address.png' %}">{{ profile.address }}</h3>
+            <h3><img class="contact-png" src="{% static 'contacts/telegram.png' %}"><a href="https://t.me/{{ profile.telegram_id }}">{{ profile.telegram_id }}</a></h3>
+            <h3><img class="contact-png" src="{% static 'contacts/phone.png' %}"> <a href="tel:{{ profile.phone }}">{{ profile.phone }}</a></h3>
+            {% if user.email %}
+                <h3><img class="contact-png" src="{% static 'contacts/email.png' %}">{{ user.email }}</h3>
+            {% else %}
+                <h3><img class="contact-png" src="{% static 'contacts/email.png' %}"> yo'q</h3>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Toggle button to show/hide form -->
+    <button id="edit-button" class="btn btn-secondary" style="margin-top: 20px;">Edit Profile</button>
+
+    <!-- Edit form is hidden by default -->
+    <div class="edit-form" id="edit-form" style="display: none;">
+        <form class="form" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {{ profile_form.as_p }}
+            <button type="submit" class="btn btn-primary">Saqlash</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // JavaScript to toggle the edit form visibility
+    document.getElementById('edit-button').addEventListener('click', function() {
+        var form = document.getElementById('edit-form');
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'block';  // Show the form
+            this.textContent = 'Hide Form';  // Change button text
+        } else {
+            form.style.display = 'none';  // Hide the form
+            this.textContent = 'Edit Profile';  // Reset button text
+        }
+    });
+</script>
+
+<div class="home-ads">
+    <style>
+        .home-ads {
+    display: flex;
+    justify-content: space-between; /* Equal spacing between ads */
+    flex-wrap: wrap; /* Allow ads to wrap to the next line on smaller screens */
+    margin: 20px 0; /* Spacing above and below the ads section */
+}
+
+.ads-box {
+    flex: 1 1 30%; /* Allow the ads to take up to 30% of the width */
+    padding: 5px; /* Padding inside each ad box */
+    margin: 10px; /* Margin between ad boxes */
+    text-align: center; /* Centering text */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    background-color: #fff; /* Background color for ad boxes */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.ads-box:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.ads-box img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+.ads-box h2 {
+    font-size: 1.25rem; /* Size for ad title */
+    margin: 10px 0; /* Margin above and below the title */
+}
+
+.ads-box h1 {
+    font-size: 1.5rem; /* Size for ad price */
+    color: #28a745; /* Green color for price to make it stand out */
+    margin: 5px 0; /* Margin above and below the price */
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+.ads-box img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* Rounded corners for images */
+    }
+
+    </style>
+    {% for ad in user_ads %}
+        <div class="ads-box">
+            <a href="{% url 'announcement_detail' ad.id %}">
+            {% if ad.image %}
+                <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+            {% else %}
+                <p>No foto!</p>
+            {% endif %}
+            <h2>{{ ad.title }}</h2>
+            <h1>{{ ad.price }}</h1>
+                 </a>
+        </div>
+    {% endfor %}
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock content %}

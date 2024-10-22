@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<style>
+           .home-ads {
+    display: flex;
+    justify-content: space-between; /* Equal spacing between ads */
+    flex-wrap: wrap; /* Allow ads to wrap to the next line on smaller screens */
+    margin: 20px 0; /* Spacing above and below the ads section */
+}
+
+.ads-box {
+    flex: 1 1 30%; /* Allow the ads to take up to 30% of the width */
+    padding: 5px; /* Padding inside each ad box */
+    margin: 10px; /* Margin between ad boxes */
+    text-align: center; /* Centering text */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    background-color: #fff; /* Background color for ad boxes */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.ads-box:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.ads-box img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+.ads-box h2 {
+    font-size: 1.25rem; /* Size for ad title */
+    margin: 10px 0; /* Margin above and below the title */
+}
+
+.ads-box h1 {
+    font-size: 1.5rem; /* Size for ad price */
+    color: #28a745; /* Green color for price to make it stand out */
+    margin: 5px 0; /* Margin above and below the price */
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+.ads-box img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* Rounded corners for images */
+    }
+
+    </style>
+<div class="home-ads">
+
+    {% for ad in results %}
+        <div class="ads-box">
+            <a href="{% url 'announcement_detail' ad.id %}">
+                {% if ad.image %}
+                    <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+                {% else %}
+                <p> Rasm Yo'q</p>
+                {% endif %}
+                <h2>{{ ad.title }}</h2>
+            <h1>{{ ad.price }}</h1>
+                 </a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

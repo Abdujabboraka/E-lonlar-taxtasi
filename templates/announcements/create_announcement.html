@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<style>
+    .container {
+    max-width: 600px; /* Center the form in the middle of the page */
+    margin: auto; /* Center the container */
+}
+
+h1 {
+    color: #007bff; /* Blue color for the heading */
+}
+
+.btn-primary {
+    background-color: #28a745; /* Green background for the create button */
+    border-color: #28a745; /* Green border for the create button */
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #1e7e34; /* Darker border on hover */
+}
+
+.btn-secondary {
+    color: #fff; /* White text for the back button */
+    background-color: #6c757d; /* Gray background for the back button */
+    border-color: #6c757d; /* Gray border for the back button */
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+    border-color: #545b62; /* Darker gray border on hover */
+}
+
+</style>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">E'lon Qo'shish</h1>
+    <form method="POST" class="bg-light p-4 border rounded" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Joylash</button>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

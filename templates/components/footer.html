@@ -1,0 +1,69 @@
+{% load static %}
+<style>footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+    transition: bottom 0.3s ease; /* Smooth transition */
+}
+
+.bottom-nav ul {
+    border-radius: 20px 20px 0 0;
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    background-color: #333; /* Example background color */
+}
+
+.bottom-nav li {
+    display: inline-block;
+}
+
+.bottom-nav a {
+    text-decoration: none;
+    color: white; /* Example text color */
+}
+
+.logo-png {
+    width: 40px;  /* Example size */
+    height: 40px;
+}
+</style>
+
+<footer>
+       <nav class="bottom-nav">
+        <ul>
+            <li><a href="{% url 'search' %}"><img class="logo-png" src="{% static 'navigations/search.png'%}"></a></li>
+            <li><a href="{% url 'create_announcement' %}"><img class="logo-png"src="{% static 'navigations/add.png'%}"></a></li>
+            <li><a href="{% url 'announcement_list' %}"><img class="logo-png" src="{% static 'navigations/home.png'%}"></a></li>
+
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'user_profile' %}"><img class="logo-png" src="{% static 'profile/user.png'%}"></a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}"><img class="logo-png" src="{% static 'profile/user.png'%}"></a></li>
+            {% endif %}
+
+
+        </ul>
+    </nav>
+</footer>
+<script>
+  let lastScrollTop = 0;
+  const footer = document.querySelector('footer');
+
+  window.addEventListener('scroll', function () {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+      // Scrolling down, hide the footer
+      footer.style.bottom = '-100px';  // Moves footer out of view
+    } else {
+      // Scrolling up, show the footer
+      footer.style.bottom = '0';
+    }
+
+    lastScrollTop = scrollTop;
+  });
+</script>

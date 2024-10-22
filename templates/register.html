@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<style>.container {
+    max-width: 400px; /* Center the form in the middle of the page */
+    margin: auto; /* Center the container */
+}
+
+h2 {
+    color: #007bff; /* Blue color for the heading */
+}
+
+.btn-primary {
+    background-color: #28a745; /* Green background for the register button */
+    border-color: #28a745; /* Green border for the register button */
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Darker green on hover */
+    border-color: #1e7e34; /* Darker border on hover */
+}
+
+.text-primary {
+    color: #007bff; /* Blue color for the login link */
+}
+
+.text-primary:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+</style>
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Register</h2>
+    <form method="POST" class="bg-light p-4 border rounded" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ profile_form.as_p }}
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+    </form>
+    <div class="text-center mt-3">
+        <p>Allaqachon akaunt bormi? <a href="{% url 'login' %}" class="text-primary">Login qiling</a></p>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

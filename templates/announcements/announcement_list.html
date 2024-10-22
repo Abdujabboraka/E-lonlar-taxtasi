@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+    background-color: #f8f9fa;  /* Light gray background for modern feel */
+}
+
+h1 {
+    color: #343a40;  /* Darker color for the heading */
+}
+
+.list-group-item {
+    border: 1px solid #dee2e6;  /* Light border for list items */
+    transition: transform 0.2s;  /* Smooth hover effect */
+}
+
+.list-group-item:hover {
+    transform: scale(1.02);  /* Slightly enlarge on hover */
+}
+
+
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+}
+
+.btn-outline-success {
+    border-color: #28a745;  /* Green border for like button */
+    color: #28a745;  /* Green text for like button */
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;  /* Green background on hover */
+    color: white;  /* White text on hover */
+}
+
+
+.categories {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 100%;
+    }
+.category-item {
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    border: 1px solid;
+    max-width: 30%;
+    padding: 5px;
+    margin: 5px;
+
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+
+    &:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+        object-fit: cover;
+     }
+     h2 {
+     font-size: 1em;
+      }
+
+
+
+
+</style>
+<style>.sections {
+    background-color: rgb(100, 100, 255);
+    padding: 20px; /* Padding around the section */
+    border-radius: 10px; /* Rounded corners for a soft look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center; /* Center the text */
+    margin: 20px auto; /* Center the section on the page */
+    max-width: 800px; /* Limit the width for readability */
+}
+
+.sections h2  {
+    font-family: 'Bree Serif', serif; /* Tasty serif font */
+    font-size: 2.5em; /* Larger font size for emphasis */
+    color: white; /* Rich brown color */
+    margin: 0; /* Remove default margin */
+    text-transform: uppercase; /* Uppercase for a bold look */
+    letter-spacing: 2px; /* Spacing between letters for elegance */
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Subtle text shadow */
+}
+
+.sections:before {
+
+    font-size: 3em; /* Larger emoji size */
+    display: block; /* Display on its own line */
+    margin-bottom: 10px; /* Space between emoji and heading */
+}
+
+.sections:after {
+    content: ""; /* Optional: add a decorative element after the heading */
+    display: block;
+    width: 50px; /* Width of decorative line */
+    height: 5px; /* Height of decorative line */
+    background-color: #7f572e; /* Same color as the heading */
+    margin: 10px auto; /* Center the line */
+    border-radius: 5px; /* Rounded edges for the line */
+}
+</style>
+<div class="sections">
+    <h2>Bo'limlar</h2>
+</div>
+
+
+<div class="categories">
+    {% for category in categories %}
+        <div class="category-item">
+        <a class="category-link" href="{% url 'category' category.id %}">
+            {% if category.image %}
+                <img src="{{ category.image.url }}" alt="{{ category.name }}" width="200">
+            {% else %}
+            <p>No foto!</p>
+            {% endif %}
+            <h2>{{ category.name }}</h2>
+        </a>
+        </div>
+    {% endfor %}
+</div>
+<div class="sections">
+    <h2>Eng Yangi E'lonlar</h2>
+</div>
+
+
+<div class="home-ads">
+    <style>
+        .home-ads {
+    display: flex;
+    justify-content: space-between; /* Equal spacing between ads */
+    flex-wrap: wrap; /* Allow ads to wrap to the next line on smaller screens */
+    margin: 20px 0; /* Spacing above and below the ads section */
+}
+
+.ads-box {
+    flex: 1 1 30%; /* Allow the ads to take up to 30% of the width */
+    padding: 5px; /* Padding inside each ad box */
+    margin: 10px; /* Margin between ad boxes */
+    text-align: center; /* Centering text */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+    background-color: #fff; /* Background color for ad boxes */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.ads-box:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.ads-box img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* Rounded corners for images */
+}
+
+.ads-box h2 {
+    font-size: 1.25rem; /* Size for ad title */
+    margin: 10px 0; /* Margin above and below the title */
+}
+
+.ads-box h1 {
+    font-size: 1.5rem; /* Size for ad price */
+    color: #28a745; /* Green color for price to make it stand out */
+    margin: 5px 0; /* Margin above and below the price */
+}
+
+/* Responsive design for small screens */
+@media (max-width: 768px) {
+.ads-box img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px; /* Rounded corners for images */
+    }
+
+    </style>
+    {% for ad in announcements %}
+        <div class="ads-box">
+            <a href="{% url 'announcement_detail' ad.id %}">
+            {% if ad.image %}
+                <img src="{{ ad.image.url }}" alt="{{ ad.title }}">
+            {% else %}
+                <p>No foto!</p>
+            {% endif %}
+            <h2>{{ ad.title }}</h2>
+            <h1>{{ ad.price }}</h1>
+                 </a>
+        </div>
+    {% endfor %}
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}

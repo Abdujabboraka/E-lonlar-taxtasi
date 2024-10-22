@@ -1,0 +1,103 @@
+{% load static %}
+<style>header {
+    background-color: #0044cc; /* Dark blue background */
+    color: white;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+    color: white;
+}
+
+header nav .container {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5px;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+
+}
+
+header nav ul li a:hover {
+    color: white; /* Light yellow on hover */
+}
+    .search-bar {
+    max-width: 90%; /* Adjusts the width of the search bar */
+    margin: auto; /* Centers the search bar */
+}
+
+.form-control {
+    border-radius: 20px; /* Gives the input field rounded corners */
+    padding: 10px; /* Adds padding for a more comfortable input area */
+}
+
+.btn-outline-success {
+    border-radius: 20px; /* Matches the input's rounded corners */
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745; /* Green background on hover */
+    color: white;
+}
+
+
+
+
+.sponsored-by {
+    text-align: right;
+    margin-top: 2px;}
+.attributes {
+    font-family: 'Bree Serif', serif;
+    color: White;
+    text-align: center;
+    background-color: rgba(15, 15, 255, 0.8);}
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Bree+Serif&display=swap" rel="stylesheet">
+
+<header>
+    <nav>
+        <div class="container">
+            <h1><a href="{% url 'announcement_list' %}">E'lonlar</a></h1>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'create_announcement' %}">E'lon qo'shish</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'register' %}">register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="search-bar mt-4">
+
+        <form action="{% url 'search' %}" method="GET" class="d-flex">
+            <input type="text" name="q" class="form-control me-2" placeholder="Qidirish..." value="{{ query }}">
+            <button type="submit" class="btn btn-outline-success">Qidirish</button>
+        </form>
+    </div>
+
+
+
+</header>
